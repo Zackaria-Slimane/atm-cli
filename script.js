@@ -32,7 +32,7 @@ async function promptCreateAccount(accountName) {
 }
 async function promptTask(account) {
   const operation = await CommandLine.ask(
-    'What would you like to do ? (view/withdraw/deposit)',
+    'What would you like to do ? (view/withdraw/deposit/leave)',
   )
   if (operation === 'deposit') {
     const amount = parseFloat(await CommandLine.ask('How much ?'))
@@ -47,6 +47,9 @@ async function promptTask(account) {
   if (operation === 'view') {
     CommandLine.print(`Your current balance is : ${account.balance}`)
     promptTask(account)
+  }
+  if (operation === 'leave') {
+    CommandLine.print(`Thank you for using our atm ${account.name}`)
   }
 }
 
