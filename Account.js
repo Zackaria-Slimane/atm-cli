@@ -22,6 +22,17 @@ module.exports = class Account {
     this.#balance = parseFloat(await FileSystem.read(this.filePath))
   }
 
+  async deposit(amount) {
+    await FileSystem.write(this.filePath, this.#balance + amount)
+    this.#balance += amount
+  }
+
+  async withdraw(amount) {
+    if (this.#balance - amount < 0) return console.log('Not enough funds')
+    await FileSystem.write(this.filePath, this.#balance - amount)
+    this.#balance -= amount
+  }
+
   static async find(accountName) {
     const account = new Account(accountName)
 
@@ -36,6 +47,8 @@ module.exports = class Account {
   static async create(accountName) {
     const account = new Account(accountName)
     await FileSystem.write(account.filePath, 0)
-    accountFound()
+    account.#balance = 0
+
+    return account
   }
 }

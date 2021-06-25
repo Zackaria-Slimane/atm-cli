@@ -17,12 +17,9 @@ async function main() {
     'Which account would you like to acces ?',
   )
   const account = await Account.find(accountName)
-  if (account == null) {
-    console.log('Cannot find account')
-    await promptCreateAccount(accountName)
-  }
+  if (account == null) account = await promptCreateAccount(accountName)
 
-  if (account) accountFound()
+  if (account != null) await promptTask(account)
 }
 
 async function promptCreateAccount(accountName) {
@@ -33,18 +30,37 @@ async function promptCreateAccount(accountName) {
     return await Account.create(accountName)
   }
 }
-
-async function accountFound() {
-  console.log('Found account')
+async function promptTask(account) {
   const operation = await CommandLine.ask(
     'What would you like to do ? (view/withdraw/deposit)',
   )
-  if (operation === 'view') console.log('You chose view')
-  if (operation === 'withdraw') console.log('You chose withdraw')
-  if (operation === 'deposit') console.log('You chose deposit')
+  if (operation === 'deposit') {
+    const amount = parseFloat(await CommandLine.ask('How much ?'))
+    await account.deposit(amount)
+    CommandLine.print(`Your current balance is : ${account.balance}`)
+  }
+  if (operation === 'withdraw') {
+    const amount = parseFloat(await CommandLine.ask('How much ?'))
+    await account.withdraw(amount)
+    CommandLine.print(`Your current balance is : ${account.balance}`)
+  }
+  if (operation === 'view') {
+    CommandLine.print(`Your current balance is : ${account.balance}`)
+    promptTask(account)
+  }
 }
 
 main()
+
+// async function accountFound() {
+//   console.log('Found account')
+//   const operation = await CommandLine.ask(
+//     'What would you like to do ? (view/withdraw/deposit)',
+//   )
+//   if (operation === 'view') console.log('You chose view')
+//   if (operation === 'withdraw') console.log('You chose withdraw')
+//   if (operation === 'deposit') console.log('You chose deposit')
+// }
 
 // const rl = readline.createInterface({
 // 	input: process.stdin,
