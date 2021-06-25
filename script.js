@@ -8,13 +8,24 @@
 //*4-3 deposit in the account
 
 //Account
-// const Account = require("/.Account.");
-const readline = require("readline");
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout,
-});
+const Account = require('./Account')
+const CommandLine = require('./CommandLine')
+// const readline = require("readline");
 
-rl.question("Which account would you like to acces ?", (answer) => {
-	console.log(answer);
-});
+async function main() {
+  const accountName = await CommandLine.ask(
+    'Which account would you like to acces ?',
+  )
+  const account = Account.find(accountName)
+}
+
+main()
+
+// const rl = readline.createInterface({
+// 	input: process.stdin,
+// 	output: process.stdout,
+// });
+// rl.question("Which account would you like to acces ? ", (answer) => {
+// 	console.log(answer);
+// 	rl.close();
+// });
