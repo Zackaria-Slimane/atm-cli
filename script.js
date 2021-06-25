@@ -20,7 +20,6 @@ async function main() {
   if (account == null) {
     console.log('Cannot find account')
     await promptCreateAccount(accountName)
-    accountFound()
   }
 
   if (account) accountFound()
