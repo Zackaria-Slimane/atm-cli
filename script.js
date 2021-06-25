@@ -17,6 +17,11 @@ async function main() {
     'Which account would you like to acces ?',
   )
   const account = Account.find(accountName)
+  if (account) {
+    console.log('Found account')
+  } else {
+    console.log('Cannot find account')
+  }
 }
 
 main()

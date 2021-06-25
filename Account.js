@@ -1,4 +1,4 @@
-const fs = require('fs')
+const FileSystem = require('./FileSystem')
 
 module.exports = class Account {
   constructor(name) {
@@ -11,25 +11,27 @@ module.exports = class Account {
   get name() {
     return this.#name
   }
+
   get balance() {
     return this.#balance
   }
+
   get filePath() {
-    return `accounts/${this.#name}.txt`
+    return `accounts/${this.name}.txt`
   }
 
-  #load() {
-    return new Promise((resolve, reject) => {
-      fs.readFile(this.filePath, (error, data) => {
-        if (error) return reject(error)
-        this.#balance = parseFloat(data)
-        resolve()
-      })
-    })
+  async #load() {
+    this.#balance = parseFloat(await FileSystem.read(this.filePath))
   }
 
-  static find(accountName) {
+  static async find(accountName) {
     const account = new Account(accountName)
-    await account.#load()
+
+    try {
+      await account.#load()
+      return account
+    } catch (e) {
+      return
+    }
   }
 }
