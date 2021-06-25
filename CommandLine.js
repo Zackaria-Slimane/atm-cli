@@ -19,5 +19,3 @@ module.exports = class CommandLine {
     console.log(text)
   }
 }
-
-

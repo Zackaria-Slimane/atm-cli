@@ -11,11 +11,9 @@ module.exports = class Account {
   get name() {
     return this.#name
   }
-
   get balance() {
     return this.#balance
   }
-
   get filePath() {
     return `accounts/${this.name}.txt`
   }
@@ -33,5 +31,10 @@ module.exports = class Account {
     } catch (e) {
       return
     }
+  }
+
+  static async create(accountName) {
+    const account = new Account(accountName)
+    await FileSystem.write(account.filePath, 0)
   }
 }
