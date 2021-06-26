@@ -18,7 +18,6 @@ async function main() {
   )
   const account = await Account.find(accountName)
   if (account == null) account = await promptCreateAccount(accountName)
-
   if (account != null) await promptTask(account)
 }
 
@@ -38,11 +37,13 @@ async function promptTask(account) {
     const amount = parseFloat(await CommandLine.ask('How much ?'))
     await account.deposit(amount)
     CommandLine.print(`Your current balance is : ${account.balance}`)
+    promptTask(account)
   }
   if (operation === 'withdraw') {
     const amount = parseFloat(await CommandLine.ask('How much ?'))
     await account.withdraw(amount)
     CommandLine.print(`Your current balance is : ${account.balance}`)
+    promptTask(account)
   }
   if (operation === 'view') {
     CommandLine.print(`Your current balance is : ${account.balance}`)
@@ -64,7 +65,6 @@ main()
 //   if (operation === 'withdraw') console.log('You chose withdraw')
 //   if (operation === 'deposit') console.log('You chose deposit')
 // }
-
 // const rl = readline.createInterface({
 // 	input: process.stdin,
 // 	output: process.stdout,

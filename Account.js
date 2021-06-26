@@ -28,7 +28,7 @@ module.exports = class Account {
   }
 
   async withdraw(amount) {
-    if (this.#balance - amount < 0) return console.log('Not enough funds')
+    if (this.balance - amount < 0) return console.error('Not enough funds')
     await FileSystem.write(this.filePath, this.#balance - amount)
     this.#balance -= amount
   }
