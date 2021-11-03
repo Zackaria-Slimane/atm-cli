@@ -13,20 +13,23 @@ const CommandLine = require('./CommandLine')
 // const readline = require("readline");
 
 async function main() {
-  const accountName = await CommandLine.ask(
+  let accountName = await CommandLine.ask(
     'Which account would you like to acces ?',
   )
-  const account = await Account.find(accountName)
+  let account = await Account.find(accountName)
   if (account == null) account = await promptCreateAccount(accountName)
   if (account != null) await promptTask(account)
 }
 
 async function promptCreateAccount(accountName) {
-  const response = await CommandLine.ask(
+  let response = await CommandLine.ask(
     'That account does not exist , would you like to create it ? (yes/no) ',
   )
   if (response === 'yes') {
     return await Account.create(accountName)
+  } else {
+    CommandLine.print('Goodbye')
+    return
   }
 }
 async function promptTask(account) {

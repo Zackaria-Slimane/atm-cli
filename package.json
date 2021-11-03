@@ -1,0 +1,24 @@
+{
+  "name": "atm-cli",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Account.js",
+  "scripts": {
+    "start": "node script.js",
+    "watch": "nodemon script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zackaria-Slimane/atm-cli.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zackaria-Slimane/atm-cli/issues"
+  },
+  "homepage": "https://github.com/Zackaria-Slimane/atm-cli#readme",
+  "dependencies": {
+    "nodemon": "^2.0.14"
+  }
+}
