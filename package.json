@@ -19,6 +19,6 @@
   },
   "homepage": "https://github.com/Zackaria-Slimane/atm-cli#readme",
   "dependencies": {
-    "nodemon": "^2.0.14"
+    "nodemon": "^2.0.15"
   }
 }
